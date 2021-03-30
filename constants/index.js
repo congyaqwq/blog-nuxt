@@ -1,0 +1,1 @@
+export const PROXY = 'localhost:3000'

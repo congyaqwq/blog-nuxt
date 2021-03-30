@@ -1,0 +1,31 @@
+Arguments: 
+  /Users/yangang/.nvm/versions/node/v10.20.1/bin/node /Users/yangang/.nvm/versions/node/v10.20.1/bin/yarn add nuxt
+
+PATH: 
+  /usr/local/opt/python@3.8/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Users/yangang/.nvm/versions/node/v10.20.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/python@3.8/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Users/yangang/.nvm/versions/node/v10.20.1/bin:/usr/local/mysql/bin:/usr/local/mysql/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  10.20.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/yangang/Desktop/learn/blog-nuxt/package.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at /Users/yangang/.nvm/versions/node/v10.20.1/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/Users/yangang/.nvm/versions/node/v10.20.1/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /Users/yangang/.nvm/versions/node/v10.20.1/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

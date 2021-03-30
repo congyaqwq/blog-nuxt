@@ -1,0 +1,56 @@
+[
+  {
+    "name": "contact",
+    "path": "/contact",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/contact/index.vue",
+    "chunkName": "pages/contact/index"
+  },
+  {
+    "name": "detail",
+    "path": "/detail",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/detail/index.vue",
+    "chunkName": "pages/detail/index"
+  },
+  {
+    "name": "NotFound",
+    "path": "/NotFound",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/NotFound.vue",
+    "chunkName": "pages/NotFound"
+  },
+  {
+    "name": "relationship",
+    "path": "/relationship",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/relationship/index.vue",
+    "chunkName": "pages/relationship/index"
+  },
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/test/index.vue",
+    "chunkName": "pages/test/index"
+  },
+  {
+    "name": "components-blog-list",
+    "path": "/components/blog-list",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/components/blog-list.vue",
+    "chunkName": "pages/components/blog-list"
+  },
+  {
+    "name": "components-search-filter",
+    "path": "/components/search-filter",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/components/search-filter.vue",
+    "chunkName": "pages/components/search-filter"
+  },
+  {
+    "name": "detail-id",
+    "path": "/detail/:id",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/detail/_id.vue",
+    "chunkName": "pages/detail/_id"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/index.vue",
+    "chunkName": "pages/index"
+  }
+]
