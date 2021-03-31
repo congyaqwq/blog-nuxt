@@ -2,10 +2,9 @@
   "name": "my-app",
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "yarn && nuxt build",
     "generate": "nuxt generate",
-    "start": "yarn && nuxt start",
-    "pro": "yarn && nuxt build && nuxt start"
+    "start": "nuxt start"
   },
   "dependencies": {
     "@nuxtjs/composition-api": "^0.22.4",

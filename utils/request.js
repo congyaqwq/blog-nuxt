@@ -11,7 +11,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-const baseURL = process.env.NODE_ENV == 'production' ? 'http://www.congyaqwq.top/api/' : 'http://localhost:3000/api/'
+const baseURL = process.env.NODE_ENV == 'production' ? 'https://www.congyaqwq.top/api/' : 'http://localhost:3000/api/'
 
 export default function (options = {}) {
   return instance({
