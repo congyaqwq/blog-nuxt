@@ -35,7 +35,7 @@ export default defineNuxtConfig({
   },
   server: {
     host: "0.0.0.0",
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 4000
   },
   // proxy: {
   //   "/": PROXY
@@ -50,9 +50,9 @@ export default defineNuxtConfig({
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    { src: "~/plugins/mixin" }
-  ],
+  // plugins: [
+  //   { src: "~/plugins/mixin" }
+  // ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [],

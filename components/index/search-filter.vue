@@ -1,7 +1,7 @@
 <template>
   <div ref="tag" class="tag-list">
-    <div class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
-      <div
+    <ul class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
+      <li
         v-for="it in list"
         :key="it.id"
         class="tag-item"
@@ -9,20 +9,29 @@
         @click="findByTag(it)"
       >
         {{ it.name }}
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { ref, watch, defineComponent } from "@nuxtjs/composition-api";
+import {
+  ref,
+  watch,
+  defineComponent,
+  useContext,
+} from "@nuxtjs/composition-api";
 import { useRoute } from "@nuxtjs/composition-api";
 
 import * as Api from "@/api/tags";
 
 export default defineComponent({
+  middleware: "isMobile",
   emits: ["change"],
   setup() {
+    const { store } = useContext();
+    const mobile = store.state.isMobile;
+
     const route = useRoute();
     const { tags = "" } = route.value.query;
     const current = ref(tags);
@@ -41,7 +50,7 @@ export default defineComponent({
       const { list: tagsList } = await Api.list();
       list.value = list.value.concat(tagsList);
     };
-    return { list, top, isFixed, fetchData, current };
+    return { list, top, isFixed, fetchData, current, mobile };
   },
   mounted() {
     this.fetchData();
@@ -49,7 +58,7 @@ export default defineComponent({
   },
   methods: {
     onPageScroll() {
-      if (!this.$refs.tag || this.isMobile()) return;
+      if (!this.$refs.tag || this.mobile) return;
       const top = this.$refs.tag.getBoundingClientRect().top;
       // this.top = window.scrollY || document.documentElement.scrollTop;
       if (top < -200) {

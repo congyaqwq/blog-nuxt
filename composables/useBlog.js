@@ -19,25 +19,19 @@ export default function () {
     tags
   })
 
-
-  const fetchData = async (fixedData = {}, init = false) => {
-    if (init) {
+  const { fetch } = useFetch(async () => {
+    if (payload.page === 1) {
       list.value = []
     }
-    const { list: resList, total: resTotal } = await Api.list({ ...payload, ...fixedData })
-    list.value = list.value.concat(resList)
-    total.value = resTotal
-  }
+    const res = await Api.list(payload)
+    list.value = list.value.concat(res.list)
+    total.value = res.total
+  })
 
-  const { fetch, fetchState } = useFetch(async () => await fetchData())
-
-  // Manually trigger a refetch
-  fetch()
-  fetchState
-
-  watch([keyword, tags], ([keyword = "", tags = ""]) => {
+  watch([keyword, tags], () => {
     list.value = []
-    fetchData({ keyword, page: 1, tags }, true)
+    payload.page = 1
+    fetch()
   })
 
 
@@ -45,8 +39,8 @@ export default function () {
     list,
     payload,
     total,
-    fetchData,
-    hasMore
+    hasMore,
+    fetch
   }
 
 }

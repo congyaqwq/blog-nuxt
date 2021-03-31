@@ -5,12 +5,9 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _5f811abb = () => interopDefault(import('../pages/contact/index.vue' /* webpackChunkName: "pages/contact/index" */))
-const _7634e6ac = () => interopDefault(import('../pages/detail/index.vue' /* webpackChunkName: "pages/detail/index" */))
 const _2cd39827 = () => interopDefault(import('../pages/NotFound.vue' /* webpackChunkName: "pages/NotFound" */))
 const _5390205a = () => interopDefault(import('../pages/relationship/index.vue' /* webpackChunkName: "pages/relationship/index" */))
 const _e470d4a6 = () => interopDefault(import('../pages/test/index.vue' /* webpackChunkName: "pages/test/index" */))
-const _3cf62170 = () => interopDefault(import('../pages/components/blog-list.vue' /* webpackChunkName: "pages/components/blog-list" */))
-const _61da95c8 = () => interopDefault(import('../pages/components/search-filter.vue' /* webpackChunkName: "pages/components/search-filter" */))
 const _2636b7d8 = () => interopDefault(import('../pages/detail/_id.vue' /* webpackChunkName: "pages/detail/_id" */))
 const _514459ea = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -30,10 +27,6 @@ export const routerOptions = {
     component: _5f811abb,
     name: "contact"
   }, {
-    path: "/detail",
-    component: _7634e6ac,
-    name: "detail"
-  }, {
     path: "/NotFound",
     component: _2cd39827,
     name: "NotFound"
@@ -46,15 +39,7 @@ export const routerOptions = {
     component: _e470d4a6,
     name: "test"
   }, {
-    path: "/components/blog-list",
-    component: _3cf62170,
-    name: "components-blog-list"
-  }, {
-    path: "/components/search-filter",
-    component: _61da95c8,
-    name: "components-search-filter"
-  }, {
-    path: "/detail/:id",
+    path: "/detail/:id?",
     component: _2636b7d8,
     name: "detail-id"
   }, {

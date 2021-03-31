@@ -3,54 +3,42 @@
     "name": "contact",
     "path": "/contact",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/contact/index.vue",
-    "chunkName": "pages/contact/index"
-  },
-  {
-    "name": "detail",
-    "path": "/detail",
-    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/detail/index.vue",
-    "chunkName": "pages/detail/index"
+    "chunkName": "pages/contact/index",
+    "_name": "_5f811abb"
   },
   {
     "name": "NotFound",
     "path": "/NotFound",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/NotFound.vue",
-    "chunkName": "pages/NotFound"
+    "chunkName": "pages/NotFound",
+    "_name": "_2cd39827"
   },
   {
     "name": "relationship",
     "path": "/relationship",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/relationship/index.vue",
-    "chunkName": "pages/relationship/index"
+    "chunkName": "pages/relationship/index",
+    "_name": "_5390205a"
   },
   {
     "name": "test",
     "path": "/test",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/test/index.vue",
-    "chunkName": "pages/test/index"
-  },
-  {
-    "name": "components-blog-list",
-    "path": "/components/blog-list",
-    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/components/blog-list.vue",
-    "chunkName": "pages/components/blog-list"
-  },
-  {
-    "name": "components-search-filter",
-    "path": "/components/search-filter",
-    "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/components/search-filter.vue",
-    "chunkName": "pages/components/search-filter"
+    "chunkName": "pages/test/index",
+    "_name": "_e470d4a6"
   },
   {
     "name": "detail-id",
-    "path": "/detail/:id",
+    "path": "/detail/:id?",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/detail/_id.vue",
-    "chunkName": "pages/detail/_id"
+    "chunkName": "pages/detail/_id",
+    "_name": "_2636b7d8"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_514459ea"
   }
 ]

@@ -19,7 +19,7 @@
       </div>
       <my-search v-model="keyword" @search="search"></my-search>
     </div>
-    <div v-if="!isMobile()" class="right">
+    <div class="right mobile-hid">
       <div class="nav-bar middle-flex">
         <router-link
           :to="{ name: value }"
@@ -31,8 +31,8 @@
         >
       </div>
     </div>
-    <div v-else class="mobile" @click="showMenu">
-      <img src="@/static/功能.svg" />
+    <div class="mobile mobile-show" @click="showMenu">
+      <img src="@/static/func.svg" />
     </div>
     <div v-if="visible" class="mobile-menu">
       <div class="bg" @click="hideMenu"></div>
@@ -61,7 +61,7 @@ import { useRoute } from "@nuxtjs/composition-api";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
 import config from "@/config";
-import SearchFilter from "@/pages/components/search-filter";
+import SearchFilter from "@/components/index/search-filter";
 import MyImage from "@/common/my-image";
 import MySearch from "@/common/my-search";
 
@@ -120,7 +120,6 @@ export default defineComponent({
     },
     search() {
       const { keyword } = this;
-      // this.$router.replace({ query: { tags: id } });
       this.$router.replace({
         query: {
           keyword,

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <!--  @change="fetchData({page: 1},true)" -->
     <div class="flex">
       <blog-list class="blog-list" :data="list"></blog-list>
-      <search-filter v-if="!isMobile()"></search-filter>
+      <search-filter class="mobile-hid"></search-filter>
     </div>
-    <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
+    <div v-if="showTips" class="bottom">暂时没有更多啦～</div>
     <div
-      :class="top > 500 && !isMobile() ? '' : 'hidden'"
+      :class="top > 500 && !mobile ? '' : 'hidden'"
       class="top-icon"
       @click="toTop"
     >
@@ -17,45 +16,46 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useContext } from "@nuxtjs/composition-api";
 
 import useBlog from "@/composables/useBlog";
-import BlogList from "./components/blog-list";
-import SearchFilter from "./components/search-filter";
+import BlogList from "@/components/index/blog-list";
+import SearchFilter from "@/components/index/search-filter";
 
 export default defineComponent({
+  middleware: "isMobile",
   components: {
     BlogList,
     SearchFilter,
   },
-  data() {
-    return {};
-  },
   setup() {
-    const { list, payload, fetchData, hasMore } = useBlog();
+    const { store } = useContext();
+    const mobile = ref(store.state.isMobile);
+
+    const { list, payload, hasMore, fetch } = useBlog();
     const top = ref(0);
+    const showTips = ref(!hasMore.value || true);
     function onPageScroll() {
-      if (process.browser) {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const getWindowHeight = document.documentElement.clientHeight;
-        const getDocumentTop = document.documentElement.offsetHeight;
-        top.value = scrollTop;
-        // 到底部了
-        if (scrollTop + getWindowHeight >= getDocumentTop) {
-          if (!hasMore.value) return;
-          fetchData({ ...payload, page: payload.page + 1 });
-        }
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const getWindowHeight = document.documentElement.clientHeight;
+      const getDocumentTop = document.documentElement.offsetHeight;
+      top.value = scrollTop;
+      // 到底部了
+      if (scrollTop + getWindowHeight >= getDocumentTop) {
+        if (!hasMore.value) return;
+        payload.page += 1;
+        fetch();
       }
     }
     if (process.browser) {
       window.addEventListener("scroll", onPageScroll);
     }
     return {
-      hasMore,
+      mobile,
+      showTips,
       list,
       top,
       payload,
-      fetchData,
     };
   },
   methods: {

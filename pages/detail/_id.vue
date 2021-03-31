@@ -4,14 +4,14 @@
     <div class="info flex">
       <div class="view-wrap middle-flex">
         <div class="icon">
-          <img src="@/static/轮回眼.svg" alt />
+          <img src="@/static/eyes.svg" alt />
         </div>
         <div class="view">{{ data.views }}</div>
       </div>
       <div class="thumbs-wrap middle-flex" @click="thumb">
         <div class="icon">
-          <img v-if="data.is_thumb" src="@/static/点赞_fill.svg" alt />
-          <img v-else src="@/static/点赞.svg" alt />
+          <img v-if="data.is_thumb" src="@/static/thumb_fill.svg" alt />
+          <img v-else src="@/static/thumb.svg" alt />
         </div>
         <div class="thumbs">{{ data.thumbs }}</div>
       </div>
@@ -27,29 +27,32 @@ import {
   defineComponent,
   useFetch,
   useRoute,
+  useMeta,
+  computed,
 } from "@nuxtjs/composition-api";
 import marked from "marked";
 
 export default defineComponent({
+  head: {},
   setup() {
     const route = useRoute();
     const data = ref({});
     const { id = "" } = route.value.params;
-    const fetchData = async () => {
+    const title = computed(() => data.value.title);
+    const content = computed(() => data.value.content);
+    useMeta(() => ({
+      title: title.value,
+      content: content.value,
+    }));
+    const { fetch } = useFetch(async () => {
       let detail = await Api.detail(id);
       detail.content = marked(detail.content);
       data.value = detail;
-    };
-
-    const { fetch, fetchstate } = useFetch(async () => {
-      await fetchData();
     });
-    fetch();
-    fetchstate;
 
     return {
       data,
-      fetchData,
+      fetchData: fetch,
     };
   },
   methods: {

@@ -1,5 +1,6 @@
 
 export function set(key, value, expired) {
+  if (!process.browser) return
   if (expired) {
     localStorage.setItem(`${key}__expired__`, Date.now() + 1000 * 60 * expired)
   }
@@ -7,6 +8,7 @@ export function set(key, value, expired) {
 }
 
 export function get(key) {
+  if (!process.browser) return
   const expired = localStorage.getItem(`${key}__expired__`)
   if (expired && Date.now() > expired) {
     clear(`${key}__expired__`)

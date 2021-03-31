@@ -6,19 +6,19 @@
       class="item"
       :to="{ name: 'detail-id', params: { id: it.id } }"
     >
-      <div class="title ellipsis">{{ it.title }}</div>
-      <div class="content">{{ it.content }}</div>
+      <h6 class="title ellipsis">{{ it.title }}</h6>
+      <p class="content">{{ it.content }}</p>
       <div class="info flex">
         <div class="view-wrap middle-flex">
           <div class="icon">
-            <img src="@/static/轮回眼.svg" alt />
+            <img src="@/static/eyes.svg" alt />
           </div>
           <div class="view">{{ it.views }}</div>
         </div>
         <div class="thumbs-wrap middle-flex" @click.stop="thumb(it)">
           <div class="icon">
-            <img v-if="it.is_thumb" src="@/static/点赞_fill.svg" alt />
-            <img v-else src="@/static/点赞.svg" alt />
+            <img v-if="it.is_thumb" src="@/static/thumb_fill.svg" alt />
+            <img v-else src="@/static/thumb.svg" alt />
           </div>
           <div class="thumbs">{{ it.thumbs }}</div>
         </div>

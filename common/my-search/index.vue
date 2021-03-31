@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile()" class="search">
+  <div class="search mobile-hid">
     <input
       :value="value"
       type="text"
@@ -32,7 +32,12 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+@media (max-width: 768px) {
+  .search {
+    direction: none;
+  }
+}
 .search {
   position: relative;
   margin-left: 20px;

@@ -4,7 +4,13 @@
     <base-header @fixed="onFixed" @cancel="onCancel"></base-header>
     <main class="main">
       <transition name="fade">
-        <Nuxt class="main-content" />
+        <Nuxt
+          class="main-content"
+          :class="isFixed ? 'fixed' : ''"
+          :style="{
+            top: `-${top - (fixed ? 0 : 100)}px`,
+          }"
+        />
       </transition>
       <!-- <router-view
         class="main-content"
@@ -42,20 +48,17 @@ export default defineComponent({
 
     if (process.browser) {
       window.addEventListener("scroll", onPageScroll);
-      function onPageScroll() {
-        if (isFixed.value) return;
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        top.value = scrollTop;
-      }
+    }
+    function onPageScroll() {
+      if (isFixed.value) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      top.value = scrollTop;
     }
     return {
       isFixed,
       top,
       fixed,
     };
-  },
-  data() {
-    return {};
   },
   methods: {
     onCancel() {
@@ -87,6 +90,7 @@ body {
   width: 100%;
   min-height: calc(100vh - 160px);
   box-sizing: border-box;
+  padding-top: 30px;
   &.fixed {
     position: fixed;
   }
@@ -95,6 +99,7 @@ body {
 @media (max-width: 768px) {
   .main-content {
     min-height: calc(100vh - 60px);
+    padding-top: 130px;
   }
 }
 
