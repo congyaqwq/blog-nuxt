@@ -4,7 +4,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "start": "nuxt start"
+    "start": "yarn && nuxt start",
+    "pro": "yarn && nuxt build && nuxt start"
   },
   "dependencies": {
     "@nuxtjs/composition-api": "^0.22.4",

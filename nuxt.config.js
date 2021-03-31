@@ -4,6 +4,7 @@ import { defineNuxtConfig } from '@nuxtjs/composition-api'
 const isDev = process.env.NODE_ENV === "development"
 
 export default defineNuxtConfig({
+  transition: 'fade',
   head: {
     title: "lc个人博客",
     meta: [
@@ -45,7 +46,7 @@ export default defineNuxtConfig({
   },
   loading: { color: "#0185F2" },
 
-  css: ["./style/index.less"],
+  css: ["./styles/index.less"],
 
   /*
    ** Plugins to load before mounting the App

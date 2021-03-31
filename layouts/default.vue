@@ -103,18 +103,6 @@ body {
   }
 }
 
-// 切换动画
-.fade-enter-active {
-  transition: opacity 0.3s ease 0.2s;
-}
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 .main > .main-content:nth-child(2) {
   display: none;
 }
