@@ -1,5 +1,5 @@
 <template>
-  <aside ref="tag" class="tag-list">
+  <aside ref="tagDom" class="tag-list">
     <ul class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
       <li
         v-for="it in list"
@@ -19,22 +19,34 @@ import {
   ref,
   watch,
   defineComponent,
+  useFetch,
+  useRouter,
   useContext,
+  onMounted,
 } from "@nuxtjs/composition-api";
 import { useRoute } from "@nuxtjs/composition-api";
+import { debounce } from "lodash";
 
 import * as Api from "@/api/tags";
 
 export default defineComponent({
   middleware: "isMobile",
   emits: ["change"],
-  setup() {
+  setup(props, { emit }) {
     const { store } = useContext();
     const mobile = store.state.isMobile;
 
     const route = useRoute();
     const { tags = "" } = route.value.query;
     const current = ref(tags);
+    const router = useRouter();
+
+    const tagDom = ref(null);
+
+    const list = ref([]);
+    const top = ref(0);
+    const isFixed = ref(false);
+
     watch(
       () => route.value.query,
       (query) => {
@@ -42,35 +54,48 @@ export default defineComponent({
         current.value = tags;
       }
     );
-    const list = ref([]);
-    const top = ref(0);
-    const isFixed = ref(false);
-    const fetchData = async () => {
+
+    const { fetch } = useFetch(async () => {
       list.value = [{ id: "", name: "全部" }];
       const { list: tagsList } = await Api.list();
       list.value = list.value.concat(tagsList);
+    });
+    const findByTag = ({ id }) => {
+      router.replace({ query: { tags: id } });
+      emit("change", { tags: id });
     };
-    return { list, top, isFixed, fetchData, current, mobile };
-  },
-  mounted() {
-    this.fetchData();
-    window.addEventListener("scroll", this.onPageScroll);
-  },
-  methods: {
-    onPageScroll() {
-      if (!this.$refs.tag || this.mobile) return;
-      const top = this.$refs.tag.getBoundingClientRect().top;
-      // this.top = window.scrollY || document.documentElement.scrollTop;
+
+    const onPageScroll = () => {
+      if (!tagDom || mobile) return;
+      const top = tagDom.value.getBoundingClientRect().top;
       if (top < -200) {
-        this.isFixed = true;
+        isFixed.value = true;
       } else {
-        this.isFixed = false;
+        isFixed.value = false;
       }
-    },
-    findByTag({ id }) {
-      this.$router.replace({ query: { tags: id } });
-      this.$emit("change", { tags: id });
-    },
+    };
+
+    const debounceScroll = () => {
+      const scroll = debounce(onPageScroll, 200);
+      scroll();
+    };
+
+    onMounted(() => {
+      if (process.browser) {
+        window.addEventListener("scroll", debounceScroll);
+      }
+    });
+
+    return {
+      list,
+      top,
+      isFixed,
+      fetchData: fetch,
+      current,
+      mobile,
+      findByTag,
+      tagDom,
+    };
   },
 });
 </script>

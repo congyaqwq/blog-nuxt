@@ -22,12 +22,13 @@ export default defineComponent({
     },
   },
   emits: ["search", "input", "update:keyword"],
-  methods: {
-    changeText(e) {
+  setup(props, { emit }) {
+    const changeText = (e) => {
       const { value } = e.target;
-      this.$emit("input", value);
-      this.$emit("update:keyword", value);
-    },
+      emit("input", value);
+      emit("update:keyword", value);
+    };
+    return { changeText };
   },
 });
 </script>

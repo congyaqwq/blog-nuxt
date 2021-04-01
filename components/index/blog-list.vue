@@ -1,13 +1,10 @@
 <template>
   <ul class="container column-flex">
-    <router-link
-      v-for="it in data"
-      :key="it.id"
-      class="item"
-      :to="{ name: 'detail-id', params: { id: it.id } }"
-    >
-      <h6 class="title ellipsis">{{ it.title }}</h6>
-      <p class="content">{{ it.content }}</p>
+    <article v-for="it in data" :key="it.id" class="item">
+      <router-link :to="{ name: 'detail-id', params: { id: it.id } }">
+        <h6 class="title ellipsis">{{ it.title }}</h6>
+        <p class="content">{{ it.content }}</p>
+      </router-link>
       <div class="info flex">
         <div class="view-wrap middle-flex">
           <div class="icon">
@@ -23,7 +20,7 @@
           <div class="thumbs">{{ it.thumbs }}</div>
         </div>
       </div>
-    </router-link>
+    </article>
   </ul>
 </template>
 
@@ -39,16 +36,16 @@ export default defineComponent({
       default: () => [],
     },
   },
-  data() {
-    return {};
-  },
-  methods: {
-    async thumb(record) {
+  setup() {
+    const thumb = async (record) => {
       const { id, is_thumb } = record;
       await Api.thumb({ blog_id: id, is_thumb });
       record.is_thumb = !is_thumb;
       record.thumbs += is_thumb ? -1 : 1;
-    },
+    };
+    return {
+      thumb,
+    };
   },
 });
 </script>

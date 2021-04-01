@@ -31,8 +31,10 @@
 </template>
 
 <script>
-import BaseHeader from "../layouts/BaseHeader";
 import { ref, defineComponent } from "@nuxtjs/composition-api";
+import { debounce } from "lodash";
+
+import BaseHeader from "../layouts/BaseHeader";
 import BaseFooter from "../layouts/BaseFooter";
 
 export default defineComponent({
@@ -47,33 +49,40 @@ export default defineComponent({
     const top = ref(0);
 
     if (process.browser) {
-      window.addEventListener("scroll", onPageScroll);
+      window.addEventListener("scroll", debounceScroll);
     }
+
+    const debounceScroll = () => {
+      const scroll = debounce(onPageScroll, 200);
+      scroll();
+    };
     function onPageScroll() {
       if (isFixed.value) return;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       top.value = scrollTop;
     }
+
+    const onFixed = () => {
+      isFixed.value = true;
+      fixed.value = fixed;
+    };
+    const onCancel = () => {
+      isFixed.value = false;
+      fixed.value = false;
+      if (process.browser) {
+        // this.$nextTick(() => {
+        window.scrollTo({ top: this.top });
+        // });
+      }
+    };
+
     return {
       isFixed,
       top,
       fixed,
+      onFixed,
+      onCancel,
     };
-  },
-  methods: {
-    onCancel() {
-      this.isFixed = false;
-      this.fixed = false;
-      if (process.browser) {
-        this.$nextTick(() => {
-          window.scrollTo({ top: this.top });
-        });
-      }
-    },
-    onFixed(fixed) {
-      this.isFixed = true;
-      this.fixed = fixed;
-    },
   },
 });
 </script>
@@ -100,6 +109,9 @@ body {
   .main-content {
     min-height: calc(100vh - 60px);
     padding-top: 130px;
+    &.fixed {
+      padding-top: 30px;
+    }
   }
 }
 

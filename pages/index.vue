@@ -18,6 +18,7 @@
 <script>
 import { ref, defineComponent, useContext } from "@nuxtjs/composition-api";
 import useBlog from "@/composables/useBlog";
+import { debounce } from "lodash";
 
 import BlogList from "@/components/index/blog-list";
 import SearchFilter from "@/components/index/search-filter";
@@ -37,22 +38,32 @@ export default defineComponent({
     const showTips = ref(!hasMore.value || true);
 
     function onPageScroll() {
-      if (!hasMore.value) return;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const getWindowHeight = document.documentElement.clientHeight;
       const getDocumentTop = document.documentElement.offsetHeight;
       top.value = scrollTop;
       // 到底部了
-      // console.log(scrollTop, getWindowHeight, getDocumentTop, hasMore.value);
       if (scrollTop + getWindowHeight >= getDocumentTop) {
+        if (!hasMore.value) return;
         payload.page += 1;
         fetch();
       }
     }
+    const debounceScroll = () => {
+      const scroll = debounce(onPageScroll, 200);
+      scroll();
+    };
 
     if (process.browser) {
-      window.addEventListener("scroll", onPageScroll);
+      window.addEventListener("scroll", debounceScroll);
     }
+
+    const toTop = () => {
+      if (process.browser) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
     // return total之后才可以在服务端返回
     return {
       mobile,
@@ -61,14 +72,8 @@ export default defineComponent({
       top,
       payload,
       total,
+      toTop,
     };
-  },
-  methods: {
-    toTop() {
-      if (process.browser) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    },
   },
 });
 </script>

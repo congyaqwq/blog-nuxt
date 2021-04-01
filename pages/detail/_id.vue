@@ -49,19 +49,18 @@ export default defineComponent({
       detail.content = marked(detail.content);
       data.value = detail;
     });
+    const thumb = async () => {
+      const { id, is_thumb } = data.value;
+      await Api.thumb({ blog_id: id, is_thumb });
+      this.data.is_thumb = !is_thumb;
+      this.data.thumbs += is_thumb ? -1 : 1;
+    };
 
     return {
       data,
       fetchData: fetch,
+      thumb,
     };
-  },
-  methods: {
-    async thumb() {
-      const { id, is_thumb } = this.data;
-      await Api.thumb({ blog_id: id, is_thumb });
-      this.data.is_thumb = !is_thumb;
-      this.data.thumbs += is_thumb ? -1 : 1;
-    },
   },
 });
 </script>

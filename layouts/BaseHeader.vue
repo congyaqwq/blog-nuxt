@@ -55,7 +55,12 @@
 </template>
 
 <script>
-import { ref, onMounted, defineComponent } from "@nuxtjs/composition-api";
+import {
+  ref,
+  onMounted,
+  defineComponent,
+  useRouter,
+} from "@nuxtjs/composition-api";
 import { useRoute } from "@nuxtjs/composition-api";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
@@ -71,60 +76,65 @@ export default defineComponent({
     MySearch,
   },
   emits: ["fixed", "cancel"],
-  setup() {
+  setup(props, { emit }) {
     const route = useRoute();
     const keyword = ref("");
     const fixed = ref(false);
     const visible = ref(false);
+    const router = useRouter();
+
+    const onPageScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (scrollTop > 200) {
+        fixed.value = true;
+      } else {
+        fixed.value = false;
+      }
+    };
+
+    const debounceScroll = () => {
+      const scroll = debounce(onPageScroll, 200);
+      scroll();
+    };
+
+    const showMenu = () => {
+      visible.value = true;
+      emit("fixed", fixed.value);
+    };
+
+    const hideMenu = (type) => {
+      if (type === "link" && process.browser) {
+        window.scrollTo(0, 0);
+      }
+      visible.value = false;
+      emit("cancel");
+    };
+
+    const search = () => {
+      router.replace({
+        query: {
+          keyword: keyword.value,
+        },
+      });
+    };
 
     onMounted(() => {
-      setTimeout(() => {
-        keyword.value = route.value.query.keyword;
-      }, 200);
+      keyword.value = route.value.query.keyword;
+      if (process.browser) {
+        window.addEventListener("scroll", debounceScroll);
+      }
     });
+
     return {
       keyword,
       fixed,
       visible,
       navMap,
       config,
+      showMenu,
+      hideMenu,
+      search,
     };
-  },
-  mounted() {
-    window.addEventListener("scroll", this.debounceScroll);
-  },
-  methods: {
-    onPageScroll() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      if (scrollTop > 200) {
-        this.fixed = true;
-      } else {
-        this.fixed = false;
-      }
-    },
-    debounceScroll() {
-      const scroll = debounce(this.onPageScroll, 200);
-      scroll();
-    },
-    showMenu() {
-      this.visible = true;
-      this.$emit("fixed", this.fixed);
-    },
-    hideMenu(type) {
-      if (type === "link") {
-        window.scrollTo(0, 0);
-      }
-      this.visible = false;
-      this.$emit("cancel");
-    },
-    search() {
-      const { keyword } = this;
-      this.$router.replace({
-        query: {
-          keyword,
-        },
-      });
-    },
   },
 });
 </script>
