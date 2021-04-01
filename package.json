@@ -14,8 +14,7 @@
     "highlight": "^0.2.4",
     "lodash": "^4.17.20",
     "marked": "^1.2.9",
-    "nuxt": "^2.15.3",
-    "postcss-pxtorem": "^6.0.0"
+    "nuxt": "^2.15.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

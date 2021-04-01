@@ -1,5 +1,5 @@
 <template>
-  <div ref="tag" class="tag-list">
+  <aside ref="tag" class="tag-list">
     <ul class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
       <li
         v-for="it in list"
@@ -11,7 +11,7 @@
         {{ it.name }}
       </li>
     </ul>
-  </div>
+  </aside>
 </template>
 
 <script>

@@ -17,8 +17,8 @@
 
 <script>
 import { ref, defineComponent, useContext } from "@nuxtjs/composition-api";
-
 import useBlog from "@/composables/useBlog";
+
 import BlogList from "@/components/index/blog-list";
 import SearchFilter from "@/components/index/search-filter";
 
@@ -32,30 +32,35 @@ export default defineComponent({
     const { store } = useContext();
     const mobile = ref(store.state.isMobile);
 
-    const { list, payload, hasMore, fetch } = useBlog();
+    const { list, payload, total, hasMore, fetch } = useBlog();
     const top = ref(0);
     const showTips = ref(!hasMore.value || true);
+
     function onPageScroll() {
+      if (!hasMore.value) return;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const getWindowHeight = document.documentElement.clientHeight;
       const getDocumentTop = document.documentElement.offsetHeight;
       top.value = scrollTop;
       // 到底部了
+      // console.log(scrollTop, getWindowHeight, getDocumentTop, hasMore.value);
       if (scrollTop + getWindowHeight >= getDocumentTop) {
-        if (!hasMore.value) return;
         payload.page += 1;
         fetch();
       }
     }
+
     if (process.browser) {
       window.addEventListener("scroll", onPageScroll);
     }
+    // return total之后才可以在服务端返回
     return {
       mobile,
       showTips,
       list,
       top,
       payload,
+      total,
     };
   },
   methods: {

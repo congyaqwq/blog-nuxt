@@ -1,6 +1,6 @@
 
 <template>
-  <div
+  <header
     ref="head"
     class="head middle-flex between-flex"
     :class="fixed ? 'fixed' : ''"
@@ -14,13 +14,12 @@
       </div>
       <div class="column-flex">
         <div class="name bold">{{ config.USERNAME }}</div>
-        <!-- Front End Engineer -->
         <div class="work">{{ config.JOB }}</div>
       </div>
       <my-search v-model="keyword" @search="search"></my-search>
     </div>
     <div class="right mobile-hid">
-      <div class="nav-bar middle-flex">
+      <nav class="nav-bar middle-flex">
         <router-link
           :to="{ name: value }"
           v-for="(value, key) in navMap"
@@ -29,14 +28,14 @@
           :class="$route.name === value ? 'active' : ''"
           >{{ key }}</router-link
         >
-      </div>
+      </nav>
     </div>
     <div class="mobile mobile-show" @click="showMenu">
       <img src="@/static/func.svg" />
     </div>
     <div v-if="visible" class="mobile-menu">
       <div class="bg" @click="hideMenu"></div>
-      <div class="menu">
+      <nav class="menu">
         <router-link
           :to="{ name: value }"
           v-for="(value, key) in navMap"
@@ -50,9 +49,9 @@
           v-if="$route.name == 'index'"
           @change="hideMenu"
         ></search-filter>
-      </div>
+      </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>

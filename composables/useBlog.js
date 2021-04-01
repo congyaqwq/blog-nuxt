@@ -7,10 +7,12 @@ export default function () {
   const route = useRoute()
   const list = ref([])
   const total = ref(0)
-  const { page = 1 } = (route.value.query || {})
+  const { page = 1 } = route.value.query
   const keyword = computed(() => route.value.query.keyword)
   const tags = computed(() => route.value.query.tags)
-  const hasMore = computed(() => total.value > list.value.length)
+  const hasMore = computed(() => {
+    return total.value > list.value.length
+  })
   const per_page = 12
   const payload = reactive({
     page,
@@ -24,8 +26,8 @@ export default function () {
       list.value = []
     }
     const res = await Api.list(payload)
-    list.value = list.value.concat(res.list)
     total.value = res.total
+    list.value = list.value.concat(res.list)
   })
 
   watch([keyword, tags], () => {

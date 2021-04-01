@@ -1,29 +1,34 @@
 <template>
-  <div class="img-container" :style="{width:`${width}px`,height:`${height}px`}">
+  <div
+    class="img-container"
+    :style="{ width: `${width}px`, height: `${height}px` }"
+  >
     <img v-if="src" :src="src" alt :title="title" />
     <span v-else>🈚️</span>
   </div>
 </template>
 
 <script>
-export default {
+import { defineComponent } from "@nuxtjs/composition-api";
+
+export default defineComponent({
   props: {
     src: {
-      type: String
+      type: String,
     },
     title: {
-      type: String
+      type: String,
     },
     width: {
       type: Number,
-      default: 80
+      default: 80,
     },
     height: {
       type: Number,
-      default: 80
-    }
-  }
-};
+      default: 80,
+    },
+  },
+});
 </script>
 
 <style lang="less" scoped>

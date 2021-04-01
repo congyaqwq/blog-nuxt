@@ -3,42 +3,36 @@
     "name": "contact",
     "path": "/contact",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/contact/index.vue",
-    "chunkName": "pages/contact/index",
-    "_name": "_5f811abb"
+    "chunkName": "pages/contact/index"
   },
   {
     "name": "NotFound",
     "path": "/NotFound",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/NotFound.vue",
-    "chunkName": "pages/NotFound",
-    "_name": "_2cd39827"
+    "chunkName": "pages/NotFound"
   },
   {
     "name": "relationship",
     "path": "/relationship",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/relationship/index.vue",
-    "chunkName": "pages/relationship/index",
-    "_name": "_5390205a"
+    "chunkName": "pages/relationship/index"
   },
   {
     "name": "test",
     "path": "/test",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/test/index.vue",
-    "chunkName": "pages/test/index",
-    "_name": "_e470d4a6"
+    "chunkName": "pages/test/index"
   },
   {
     "name": "detail-id",
     "path": "/detail/:id?",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/detail/_id.vue",
-    "chunkName": "pages/detail/_id",
-    "_name": "_2636b7d8"
+    "chunkName": "pages/detail/_id"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/yangang/Desktop/learn/blog-nuxt/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_514459ea"
+    "chunkName": "pages/index"
   }
 ]
