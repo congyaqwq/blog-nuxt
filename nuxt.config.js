@@ -56,7 +56,7 @@ export default defineNuxtConfig({
   // ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ['cookie-universal-nuxt'],
   buildModules: [
     "@nuxtjs/proxy",
     "@nuxtjs/eslint-module",
