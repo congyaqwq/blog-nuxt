@@ -56,6 +56,7 @@ export default defineComponent({
       const scroll = debounce(onPageScroll, 200);
       scroll();
     };
+
     function onPageScroll() {
       if (isFixed.value) return;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -66,13 +67,12 @@ export default defineComponent({
       isFixed.value = true;
       fixed.value = fixed;
     };
+
     const onCancel = () => {
       isFixed.value = false;
       fixed.value = false;
       if (process.browser) {
-        // this.$nextTick(() => {
         window.scrollTo({ top: this.top });
-        // });
       }
     };
 

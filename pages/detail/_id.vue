@@ -52,8 +52,8 @@ export default defineComponent({
     const thumb = async () => {
       const { id, is_thumb } = data.value;
       await Api.thumb({ blog_id: id, is_thumb });
-      this.data.is_thumb = !is_thumb;
-      this.data.thumbs += is_thumb ? -1 : 1;
+      data.value.is_thumb = !is_thumb;
+      data.value.thumbs += is_thumb ? -1 : 1;
     };
 
     return {

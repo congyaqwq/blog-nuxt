@@ -5,9 +5,6 @@ const instance = axios.create({ withCredentials: true })
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  console.log(process.browser, response.headers['set-cookie'])
-  const uid = response.headers['set-cookie']
-  console.log(uid)
   return response
 }, function (error) {
   // 对响应错误做点什么
@@ -22,7 +19,5 @@ export default function (options = {}) {
     ...options
   }).then(res => {
     return res.data
-  }).catch(e => {
-    return Promise.reject(e)
   })
 }
