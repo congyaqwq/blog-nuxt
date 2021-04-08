@@ -1,4 +1,4 @@
-// import { PROXY } from "./constants"
+import { PROXY } from "./constants"
 import { defineNuxtConfig } from '@nuxtjs/composition-api'
 
 const isDev = process.env.NODE_ENV === "development"
@@ -38,9 +38,17 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     port: process.env.PORT || 4000
   },
-  // proxy: {
-  //   "/api": PROXY
-  // },
+
+  proxy: {
+    "/api": {
+      target: PROXY,
+      changeOrigin: true,
+      ws: false,
+      pathRewrite: {
+        "^/api": "/api"
+      }
+    }
+  },
   env: {
     NODE_ENV: process.env.NODE_ENV || "development"
   },

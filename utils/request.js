@@ -11,7 +11,7 @@ instance.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-const baseURL = process.env.NODE_ENV == 'production' ? 'https://www.congyaqwq.top/api/' : 'http://localhost:3000/api/'
+const baseURL = process.env.NODE_ENV == 'production' ? 'https://www.congyaqwq.top/api/' : 'http://192.168.1.27:4000/api/'
 
 export default function (options = {}) {
   return instance({
@@ -21,3 +21,5 @@ export default function (options = {}) {
     return res.data
   })
 }
+
+export { instance }
