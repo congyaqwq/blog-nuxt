@@ -87,4 +87,9 @@ export default defineComponent({
   width: 20px;
   height: 20px;
 }
+a {
+  :hover {
+    color: #4abbff;
+  }
+}
 </style>
