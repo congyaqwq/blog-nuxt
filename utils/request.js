@@ -11,7 +11,7 @@ instance.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-const baseURL = process.env.NODE_ENV == 'production' ? 'https://www.congyaqwq.top/api/' : 'http://192.168.1.26:4000/api/'
+const baseURL = process.env.NODE_ENV == 'production' ? 'https://www.congyaqwq.top/api/' : 'http://127.0.0.1:4000/api/'
 
 export default function (options = {}) {
   return instance({
