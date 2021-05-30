@@ -6,7 +6,7 @@
       @input="changeText"
       @keyup.enter="$emit('search')"
     />
-    <img class="icon" src="@/static/search.svg" alt />
+    <i style="font-size:20px" class="icon iconfont">&#xe619;</i>
     <div class="search-btn" @click="$emit('search')">搜索</div>
   </div>
 </template>

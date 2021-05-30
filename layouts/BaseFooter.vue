@@ -17,5 +17,6 @@ export default defineComponent({});
   bottom: 0;
   height: 60px;
   width: 100%;
+  background-color: var(--bg);
 }
 </style>

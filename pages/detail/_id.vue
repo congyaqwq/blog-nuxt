@@ -4,15 +4,15 @@
     <div class="info flex">
       <div class="view-wrap middle-flex">
         <div class="icon">
-          <img src="@/static/eyes.svg" alt />
+          <i style="font-size:20px" class="iconfont">&#xe64b;</i>
         </div>
         <div class="view">{{ data.views }}</div>
       </div>
       <div class="thumbs-wrap middle-flex" @click="thumb">
         <div class="icon">
-          <img v-if="data.is_thumb" src="@/static/thumb_fill.svg" alt />
-          <img v-else src="@/static/thumb.svg" alt />
-        </div>
+            <i v-if="data.is_thumb" class="iconfont">&#xe6e4;</i>
+            <i v-else class="iconfont">&#xe708;</i>
+          </div>
         <div class="thumbs">{{ data.thumbs }}</div>
       </div>
     </div>
@@ -74,6 +74,8 @@ export default defineComponent({
   margin-top: 30px;
   .view-wrap {
     margin-right: 15px;
+    user-select: none;
+    cursor: pointer;
   }
 }
 .content {

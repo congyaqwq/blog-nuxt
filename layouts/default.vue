@@ -92,7 +92,7 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--color);
 }
 .main-content {
   padding: 30px 10%;
@@ -100,6 +100,7 @@ body {
   min-height: calc(100vh - 160px);
   box-sizing: border-box;
   padding-top: 30px;
+  background-color: var(--bg);
   &.fixed {
     position: fixed;
   }

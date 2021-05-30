@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1>正在开发中...</h1>
+  <div class="relationship">
+    {{ $colorMode.value }}
+    <h1 @click="$colorMode.preference = 'dark'">正在开发中...</h1>
     <grid></grid>
   </div>
 </template>
@@ -16,5 +17,9 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="less" scopde>
+.relationship {
+  color:var(--color);
+  background-color: var(--bg);
+}
 </style>

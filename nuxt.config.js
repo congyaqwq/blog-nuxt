@@ -68,7 +68,8 @@ export default defineNuxtConfig({
   buildModules: [
     "@nuxtjs/proxy",
     "@nuxtjs/eslint-module",
-    '@nuxtjs/composition-api'
+    '@nuxtjs/composition-api',
+    '@nuxtjs/color-mode'
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

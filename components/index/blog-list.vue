@@ -8,14 +8,14 @@
       <div class="info flex">
         <div class="view-wrap middle-flex">
           <div class="icon">
-            <img src="@/static/eyes.svg" alt />
+            <i style="font-size:20px" class="iconfont">&#xe64b;</i>
           </div>
           <div class="view">{{ it.views }}</div>
         </div>
         <div class="thumbs-wrap middle-flex" @click.stop="thumb(it)">
           <div class="icon">
-            <img v-if="it.is_thumb" src="@/static/thumb_fill.svg" alt />
-            <img v-else src="@/static/thumb.svg" alt />
+            <i v-if="it.is_thumb" class="iconfont">&#xe6e4;</i>
+            <i v-else class="iconfont">&#xe708;</i>
           </div>
           <div class="thumbs">{{ it.thumbs }}</div>
         </div>
@@ -58,9 +58,9 @@ export default defineComponent({
     position: relative;
     padding: 15px 20px;
     margin: 5px 0;
-    background-color: #fff;
+    background-color: var(--bg);
     transition: all 0.5s;
-    color: #333;
+    color: var(--color);
     &::before,
     &::after {
       content: "";
@@ -86,7 +86,6 @@ export default defineComponent({
     }
     &:hover {
       box-shadow: 3px 3px 20px #ccc;
-      color: #000;
       &::before,
       &::after {
         width: calc(100% + 3px);
@@ -113,6 +112,11 @@ export default defineComponent({
   margin-top: 8px;
   .view-wrap {
     margin-right: 15px;
+    width:50px;
+  }
+  .thumbs-wrap {
+    cursor: pointer;
+    user-select: none;
   }
 }
 

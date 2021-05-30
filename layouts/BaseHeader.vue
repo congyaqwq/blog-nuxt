@@ -8,7 +8,7 @@
     <div class="left middle-flex">
       <div class="avatar">
         <my-image
-          title="莱纳你坐啊"
+          title="avatar 头像"
           :src="require('@/static/youdoa.png')"
         ></my-image>
       </div>
@@ -17,6 +17,13 @@
         <div class="work">{{ config.JOB }}</div>
       </div>
       <my-search v-model="keyword" @search="search"></my-search>
+    </div>
+    <div class="middle-flex">
+      <span class="mobile-hid">主题：</span>
+      <my-radio></my-radio>
+    </div>
+    <div class="mobile mobile-show" @click="showMenu">
+      <i style="font-size:40px" class="iconfont">&#xe6d8;</i>
     </div>
     <div class="right mobile-hid">
       <nav class="nav-bar middle-flex">
@@ -29,9 +36,6 @@
           >{{ key }}</router-link
         >
       </nav>
-    </div>
-    <div class="mobile mobile-show" @click="showMenu">
-      <img src="@/static/func.svg" />
     </div>
     <div v-if="visible" class="mobile-menu">
       <div class="bg" @click="hideMenu"></div>
@@ -49,6 +53,7 @@
           v-if="$route.name == 'index'"
           @change="hideMenu"
         ></search-filter>
+
       </nav>
     </div>
   </header>
@@ -65,15 +70,18 @@ import { useRoute } from "@nuxtjs/composition-api";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
 import config from "@/config";
+
 import SearchFilter from "@/components/index/search-filter";
 import MyImage from "@/common/my-image";
 import MySearch from "@/common/my-search";
+import MyRadio from './components/my-radio.vue'
 
 export default defineComponent({
   components: {
     SearchFilter,
     MyImage,
     MySearch,
+    MyRadio
   },
   emits: ["fixed", "cancel"],
   setup(props, { emit }) {
@@ -147,8 +155,9 @@ export default defineComponent({
   width: 100%;
   height: 100px;
   box-sizing: border-box;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+  color:var(--color);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
   z-index: 2;
   &.fixed {
     animation: fadeInDown 0.3s linear;
@@ -220,7 +229,7 @@ export default defineComponent({
         padding-top: 10px;
         width: 60%;
         height: 100%;
-        background-color: #fff;
+        background-color: var(--bg);
         animation: leftToRight 0.3s linear;
         .item {
           padding: 20px;

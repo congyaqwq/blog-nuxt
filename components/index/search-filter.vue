@@ -111,7 +111,7 @@ export default defineComponent({
     width: 300px;
     height: fit-content;
     padding: 10px;
-    background-color: #eee;
+    background-color: var(--bg-filter);
     border-radius: 12px;
     &.fixed {
       position: fixed;

@@ -86,11 +86,12 @@ export default defineComponent({
   padding: 10px;
   width: 50px;
   height: 50px;
-  background-color: #333;
+  background-color: var(--bg-secondary);
   border-radius: 50%;
   cursor: pointer;
   transition: opacity 0.5s;
   opacity: 1;
+  border:1px solid var(--border-top-color);
   &.hidden {
     opacity: 0;
   }
