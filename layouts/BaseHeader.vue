@@ -39,14 +39,13 @@
     </div>
     <div v-if="visible" class="mobile-menu">
       <div class="bg" @click="hideMenu"></div>
-      <nav class="menu">
+      <nav class="menu" @click="hideMenu('link')">
         <router-link
           :to="{ name: value }"
           v-for="(value, key) in navMap"
           :key="key"
           class="center-flex item"
           :class="$route.name === value ? 'active' : ''"
-          @click="hideMenu('link')"
           >{{ key }}</router-link
         >
         <search-filter

@@ -72,7 +72,7 @@ export default defineComponent({
       isFixed.value = false;
       fixed.value = false;
       if (process.browser) {
-        window.scrollTo({ top: this.top });
+        window.scrollTo({ top: top.value });
       }
     };
 
@@ -93,6 +93,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color);
+  background-color: var(--bg);
 }
 .main-content {
   padding: 30px 10%;
