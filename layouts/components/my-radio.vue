@@ -19,9 +19,13 @@ export default defineComponent({
   methods: {
     changeTheme() {
       this.active = this.active === "light" ? "dark" : "light";
+      console.log(this.active, 1);
       this.$colorMode.preference = this.active;
       // this.$emit('change',active)
     },
+  },
+  mounted() {
+    this.active = this.$colorMode.preference;
   },
 });
 </script>
