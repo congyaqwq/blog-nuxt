@@ -1,11 +1,6 @@
 <template>
   <div class="search mobile-hid">
-    <input
-      :value="value"
-      type="text"
-      @input="changeText"
-      @keyup.enter="$emit('search')"
-    />
+    <input :value="value" type="text" @input="changeText" @keyup.enter="$emit('search')" />
     <i style="font-size:20px" class="icon iconfont">&#xe619;</i>
     <div class="search-btn" @click="$emit('search')">搜索</div>
   </div>
@@ -51,6 +46,7 @@ export default defineComponent({
     border: 1px solid #aaa;
     padding-left: 40px;
     box-sizing: border-box;
+    color: var(--color);
     &:focus {
       transition: all 0.2s;
       border: 1px solid #333;

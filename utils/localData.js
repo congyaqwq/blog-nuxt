@@ -21,3 +21,7 @@ export function get(key) {
 function clear(key) {
   localStorage.removeItem(key)
 }
+
+export default {
+  set, get
+}

@@ -7,10 +7,11 @@
 
 <script>
 import { defineComponent, ref } from "@nuxtjs/composition-api";
+import * as localData from "@/utils/localData";
 
 export default defineComponent({
   setup() {
-    const active = ref("light");
+    const active = ref("system");
 
     return {
       active,
@@ -18,14 +19,20 @@ export default defineComponent({
   },
   methods: {
     changeTheme() {
-      this.active = this.active === "light" ? "dark" : "light";
-      console.log(this.active, 1);
+      this.active = ["light"].includes(this.active) ? "dark" : "light";
       this.$colorMode.preference = this.active;
+      if (process.browser) {
+        localData.set("blog-color", this.active, 7 * 24);
+      }
       // this.$emit('change',active)
     },
   },
   mounted() {
-    this.active = this.$colorMode.preference;
+    const active = localData.get("blog-color");
+    this.active = active || this.$colorMode.preference;
+    if (process.browser) {
+      localData.set("blog-color", this.active, 7 * 24);
+    }
   },
 });
 </script>
@@ -42,6 +49,7 @@ export default defineComponent({
   user-select: none;
   color: #333;
   font-size: 12px;
+  cursor: pointer;
   &::after {
     position: absolute;
     top: 0;
@@ -66,7 +74,6 @@ export default defineComponent({
   .button {
     width: 40px;
     height: 100%;
-    cursor: pointer;
     transform: translateX(0px);
   }
 }
