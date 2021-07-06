@@ -10,9 +10,9 @@
       </div>
       <div class="thumbs-wrap middle-flex" @click="thumb">
         <div class="icon">
-            <i v-if="data.is_thumb" class="iconfont">&#xe6e4;</i>
-            <i v-else class="iconfont">&#xe708;</i>
-          </div>
+          <i v-if="data.is_thumb" class="iconfont">&#xe6e4;</i>
+          <i v-else class="iconfont">&#xe708;</i>
+        </div>
         <div class="thumbs">{{ data.thumbs }}</div>
       </div>
     </div>
@@ -69,6 +69,9 @@ export default defineComponent({
 .blog-detail {
   width: 100%;
   box-sizing: border-box;
+  a {
+    color: #4a99ff;
+  }
 }
 .info {
   margin-top: 30px;
