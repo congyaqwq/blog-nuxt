@@ -11,7 +11,7 @@ import * as localData from '@/utils/localData'
 
 export default defineComponent({
   setup() {
-    const active = ref('light')
+    const active = ref('system')
 
     return {
       active,
@@ -19,7 +19,7 @@ export default defineComponent({
   },
   methods: {
     changeTheme() {
-      this.active = ['light'].includes(this.active) ? 'dark' : 'light'
+      this.active = ['light', 'system'].includes(this.active) ? 'dark' : 'light'
       console.log(this.active, 1)
       this.$colorMode.preference = this.active
       if (process.browser) {
