@@ -2,7 +2,7 @@
   <ul>
     <li>微信:lc18379686811</li>
     <li>
-      <a href="https://github.com/congyaqwq?tab=repositories" target="_blank"
+      <a href="https://github.com/congyaqwq" target="_blank"
         >github</a
       >
     </li>
