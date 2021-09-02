@@ -1,16 +1,8 @@
-
 <template>
-  <header
-    ref="head"
-    class="head middle-flex between-flex"
-    :class="fixed ? 'fixed' : ''"
-  >
+  <header ref="head" class="head middle-flex between-flex" :class="fixed ? 'fixed' : ''">
     <div class="left middle-flex">
       <div class="avatar">
-        <my-image
-          title="avatar 头像"
-          :src="require('@/static/youdoa.png')"
-        ></my-image>
+        <my-image title="avatar 头像" :src="require('@/static/youdoa.png')"></my-image>
       </div>
       <div class="column-flex">
         <div class="name bold">{{ config.USERNAME }}</div>
@@ -48,31 +40,22 @@
           :class="$route.name === value ? 'active' : ''"
           >{{ key }}</router-link
         >
-        <search-filter
-          v-if="$route.name == 'index'"
-          @change="hideMenu"
-        ></search-filter>
-
+        <search-filter v-if="$route.name == 'index'" @change="hideMenu"></search-filter>
       </nav>
     </div>
   </header>
 </template>
 
 <script>
-import {
-  ref,
-  onMounted,
-  defineComponent,
-  useRouter,
-} from "@nuxtjs/composition-api";
-import { useRoute } from "@nuxtjs/composition-api";
-import { debounce } from "lodash";
-import { navMap } from "@/constants/user";
-import config from "@/config";
+import { ref, onMounted, defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { useRoute } from '@nuxtjs/composition-api'
+import { debounce } from 'lodash'
+import { navMap } from '@/constants/user'
+import config from '@/config'
 
-import SearchFilter from "@/components/index/search-filter";
-import MyImage from "@/common/my-image";
-import MySearch from "@/common/my-search";
+import SearchFilter from '@/components/index/search-filter'
+import MyImage from '@/common/my-image'
+import MySearch from '@/common/my-search'
 import MyRadio from './components/my-radio.vue'
 
 export default defineComponent({
@@ -80,57 +63,57 @@ export default defineComponent({
     SearchFilter,
     MyImage,
     MySearch,
-    MyRadio
+    MyRadio,
   },
-  emits: ["fixed", "cancel"],
-  setup(props, { emit }) {
-    const route = useRoute();
-    const keyword = ref("");
-    const fixed = ref(false);
-    const visible = ref(false);
-    const router = useRouter();
+  emits: ['fixed', 'cancel'],
+  setup(_, { emit }) {
+    const route = useRoute()
+    const keyword = ref('')
+    const fixed = ref(false)
+    const visible = ref(false)
+    const router = useRouter()
 
     const onPageScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop
       if (scrollTop > 200) {
-        fixed.value = true;
+        fixed.value = true
       } else {
-        fixed.value = false;
+        fixed.value = false
       }
-    };
+    }
 
     const debounceScroll = () => {
-      const scroll = debounce(onPageScroll, 200);
-      scroll();
-    };
+      const scroll = debounce(onPageScroll, 200)
+      scroll()
+    }
 
     const showMenu = () => {
-      visible.value = true;
-      emit("fixed", fixed.value);
-    };
+      visible.value = true
+      emit('fixed', fixed.value)
+    }
 
     const hideMenu = (type) => {
-      if (type === "link" && process.browser) {
-        window.scrollTo(0, 0);
+      if (type === 'link' && process.browser) {
+        window.scrollTo(0, 0)
       }
-      visible.value = false;
-      emit("cancel");
-    };
+      visible.value = false
+      emit('cancel')
+    }
 
     const search = () => {
       router.replace({
         query: {
           keyword: keyword.value,
         },
-      });
-    };
+      })
+    }
 
     onMounted(() => {
-      keyword.value = route.value.query.keyword;
+      keyword.value = route.value.query.keyword
       if (process.browser) {
-        window.addEventListener("scroll", debounceScroll);
+        window.addEventListener('scroll', debounceScroll)
       }
-    });
+    })
 
     return {
       keyword,
@@ -141,9 +124,9 @@ export default defineComponent({
       showMenu,
       hideMenu,
       search,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>
@@ -154,7 +137,7 @@ export default defineComponent({
   width: 100%;
   height: 100px;
   box-sizing: border-box;
-  color:var(--color);
+  color: var(--color);
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   z-index: 2;

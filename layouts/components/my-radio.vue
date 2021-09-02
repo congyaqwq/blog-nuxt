@@ -6,35 +6,36 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import * as localData from "@/utils/localData";
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+import * as localData from '@/utils/localData'
 
 export default defineComponent({
   setup() {
-    const active = ref("system");
+    const active = ref('light')
 
     return {
       active,
-    };
+    }
   },
   methods: {
     changeTheme() {
-      this.active = ["light"].includes(this.active) ? "dark" : "light";
-      this.$colorMode.preference = this.active;
+      this.active = ['light'].includes(this.active) ? 'dark' : 'light'
+      console.log(this.active, 1)
+      this.$colorMode.preference = this.active
       if (process.browser) {
-        localData.set("blog-color", this.active, 7 * 24);
+        localData.set('blog-color', this.active, 7 * 24)
       }
       // this.$emit('change',active)
     },
   },
   mounted() {
-    const active = localData.get("blog-color");
-    this.active = active || this.$colorMode.preference;
+    const active = localData.get('blog-color')
+    this.active = active || this.$colorMode.preference
     if (process.browser) {
-      localData.set("blog-color", this.active, 7 * 24);
+      localData.set('blog-color', this.active, 7 * 24)
     }
   },
-});
+})
 </script>
 
 <style lang="less" scoped>
@@ -55,7 +56,7 @@ export default defineComponent({
     top: 0;
     bottom: 0;
     right: 0;
-    content: "";
+    content: '';
     width: 30px;
     height: 100%;
     background-color: #0d2538;
