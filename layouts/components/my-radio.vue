@@ -19,7 +19,7 @@ export default defineComponent({
   },
   methods: {
     changeTheme() {
-      this.active = ['light', 'system'].includes(this.active) ? 'dark' : 'light'
+      this.active = ['light'].includes(this.active) ? 'dark' : 'light'
       this.$colorMode.preference = this.active
       if (process.browser) {
         localData.set('blog-color', this.active, 7 * 24)
@@ -28,10 +28,14 @@ export default defineComponent({
     },
   },
   mounted() {
-    const active = localData.get('blog-color')
-    this.active = active || this.$colorMode.preference
     if (process.browser) {
+      if(window.matchMedia('(prefers-color-scheme: dark)')) {
+        this.active = 'dark'
+      }else {
+        this.active = 'light'
+      }
       localData.set('blog-color', this.active, 7 * 24)
+      console.log(this.active,1)
     }
   },
 })
