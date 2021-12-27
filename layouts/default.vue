@@ -1,37 +1,24 @@
 <template>
   <div>
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <base-header @fixed="onFixed" @cancel="onCancel"></base-header>
     <main class="main">
       <transition name="fade">
+        <!-- 130为距离顶部高度 -->
         <Nuxt
           class="main-content"
           :class="isFixed ? 'fixed' : ''"
           :style="{
-            top: `-${top - (fixed ? 0 : 100)}px`,
+            top: `${130-top}px`,
           }"
         />
       </transition>
-      <!-- <router-view
-        class="main-content"
-        v-slot="{ Component }"
-        :class="isFixed ? 'fixed' : ''"
-        :style="{
-          top: `-${top - (fixed ? 0 : 100)}px`,
-          paddingTop: isMobile() ? '130px' : '30px',
-        }"
-      >
-        <transition name="fade">
-          <component :is="Component" />
-        </transition>
-      </router-view> -->
     </main>
     <base-footer></base-footer>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent } from "@nuxtjs/composition-api";
+import { ref, defineComponent, nextTick } from "@nuxtjs/composition-api";
 import { debounce } from "lodash";
 
 import BaseHeader from "../layouts/BaseHeader";
@@ -49,7 +36,7 @@ export default defineComponent({
     const top = ref(0);
 
     if (process.browser) {
-      window.addEventListener("scroll", debounceScroll);
+      window.addEventListener("scroll", ()=>debounceScroll());
     }
 
     const debounceScroll = () => {
@@ -65,14 +52,16 @@ export default defineComponent({
 
     const onFixed = () => {
       isFixed.value = true;
-      fixed.value = fixed;
+      fixed.value = true;
     };
 
     const onCancel = () => {
       isFixed.value = false;
       fixed.value = false;
       if (process.browser) {
-        window.scrollTo({ top: top.value });
+        nextTick(()=> {
+          window.scrollTo({ top: top.value });
+        })
       }
     };
 
@@ -100,10 +89,10 @@ body {
   width: 100%;
   min-height: calc(100vh - 160px);
   box-sizing: border-box;
-  padding-top: 30px;
   background-color: var(--bg);
   &.fixed {
     position: fixed;
+    padding-top: 0;
   }
 }
 
@@ -111,9 +100,6 @@ body {
   .main-content {
     min-height: calc(100vh - 60px);
     padding-top: 130px;
-    &.fixed {
-      padding-top: 30px;
-    }
   }
 }
 
