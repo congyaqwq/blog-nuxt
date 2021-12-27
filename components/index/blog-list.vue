@@ -12,13 +12,13 @@
           </div>
           <div class="view">{{ it.views }}</div>
         </div>
-        <div class="thumbs-wrap middle-flex" @click.stop="thumb(it)">
+        <!-- <div class="thumbs-wrap middle-flex" @click.stop="thumb(it)">
           <div class="icon">
             <i v-if="it.is_thumb" class="iconfont">&#xe6e4;</i>
             <i v-else class="iconfont">&#xe708;</i>
           </div>
           <div class="thumbs">{{ it.thumbs }}</div>
-        </div>
+        </div> -->
       </div>
     </article>
   </ul>
