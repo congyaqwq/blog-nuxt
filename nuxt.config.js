@@ -1,5 +1,7 @@
 import { PROXY } from "./constants"
 import { defineNuxtConfig } from '@nuxtjs/composition-api'
+import path from 'path'
+import fs from 'fs'
 
 const isDev = process.env.NODE_ENV === "development"
 
@@ -36,7 +38,11 @@ export default defineNuxtConfig({
   },
   server: {
     host: "0.0.0.0",
-    port: process.env.PORT || 4000
+    port: process.env.PORT || 4000,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'cert.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'cert.crt'))
+    }
   },
 
   proxy: {
@@ -64,7 +70,6 @@ export default defineNuxtConfig({
   // ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ['cookie-universal-nuxt'],
   buildModules: [
     "@nuxtjs/proxy",
     "@nuxtjs/eslint-module",

@@ -22,12 +22,13 @@ export default function () {
   })
 
   const { fetch } = useFetch(async () => {
-    if (payload.page === 1) {
-      list.value = []
-    }
     const res = await Api.list(payload)
     total.value = res.total
-    list.value = list.value.concat(res.list)
+    if (payload.page === 1) {
+      list.value = res.list
+    }else {
+      list.value = list.value.concat(res.list)
+    }
   })
 
   watch([keyword, tags], () => {

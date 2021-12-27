@@ -20,7 +20,6 @@ export default defineComponent({
   methods: {
     changeTheme() {
       this.active = ['light', 'system'].includes(this.active) ? 'dark' : 'light'
-      console.log(this.active, 1)
       this.$colorMode.preference = this.active
       if (process.browser) {
         localData.set('blog-color', this.active, 7 * 24)
