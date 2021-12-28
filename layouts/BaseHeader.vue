@@ -1,5 +1,5 @@
 <template>
-  <header ref="head" class="head middle-flex between-flex" :class="fixed ? 'fixed' : ''">
+  <header ref="head" class="head middle-flex between-flex" :class="isFixd ? 'fixed' : ''">
     <div class="left middle-flex">
       <div class="avatar">
         <my-image title="avatar 头像" :src="require('@/static/youdoa.png')"></my-image>
@@ -49,7 +49,6 @@
 <script>
 import { ref, onMounted, defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useRoute } from '@nuxtjs/composition-api'
-import { debounce } from 'lodash'
 import { navMap } from '@/constants/user'
 import config from '@/config'
 
@@ -65,39 +64,23 @@ export default defineComponent({
     MySearch,
     MyRadio,
   },
+  props: ['isFixd'],
   emits: ['fixed', 'cancel'],
   setup(_, { emit }) {
     const route = useRoute()
     const keyword = ref('')
-    const fixed = ref(false)
+    // 移动端显示背景以及左侧导航
     const visible = ref(false)
     const router = useRouter()
 
-    const onPageScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop
-      if (scrollTop > 200) {
-        fixed.value = true
-      } else {
-        fixed.value = false
-      }
-    }
-
-    const debounceScroll = () => {
-      const scroll = debounce(onPageScroll, 200)
-      scroll()
-    }
-
     const showMenu = () => {
       visible.value = true
-      emit('fixed', fixed.value)
+      emit('fixed')
     }
 
     const hideMenu = (type) => {
-      if (type === 'link' && process.browser) {
-        window.scrollTo(0, 0)
-      }
       visible.value = false
-      emit('cancel')
+      emit('cancel', type)
     }
 
     const search = () => {
@@ -110,14 +93,9 @@ export default defineComponent({
 
     onMounted(() => {
       keyword.value = route.value.query.keyword
-      if (process.browser) {
-        window.addEventListener('scroll', debounceScroll)
-      }
     })
-
     return {
       keyword,
-      fixed,
       visible,
       navMap,
       config,
