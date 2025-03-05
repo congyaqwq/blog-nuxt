@@ -58,7 +58,7 @@ export default defineComponent({
     const { fetch } = useFetch(async () => {
       list.value = [{ id: "", name: "全部" }];
       const { list: tagsList } = await Api.list();
-      list.value = list.value.concat(tagsList);
+      list.value = list.value.concat(tagsList || []);
     });
     const findByTag = ({ id }) => {
       router.replace({ query: { tags: id } });

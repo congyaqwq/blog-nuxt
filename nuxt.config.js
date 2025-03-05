@@ -1,11 +1,10 @@
 import { PROXY } from "./constants"
-import { defineNuxtConfig } from '@nuxtjs/composition-api'
 // import path from 'path'
 // import fs from 'fs'
 
 const isDev = process.env.NODE_ENV === "development"
 
-export default defineNuxtConfig({
+export default {
   transition: 'fade',
   head: {
     title: "lc个人博客",
@@ -70,12 +69,26 @@ export default defineNuxtConfig({
   // ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
+  modules: [
+    '@nuxtjs/composition-api/module',
+    '@nuxtjs/proxy'
+  ],
+  
   buildModules: [
-    "@nuxtjs/proxy",
     "@nuxtjs/eslint-module",
-    '@nuxtjs/composition-api',
     '@nuxtjs/color-mode'
   ],
+  
+  colorMode: {
+    preference: 'system', // default value of $colorMode.preference
+    fallback: 'light',    // fallback value if not system preference found
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '-mode',
+    storageKey: 'nuxt-color-mode'
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
@@ -89,4 +102,4 @@ export default defineNuxtConfig({
       plugins: []
     },
   }
-})
+}

@@ -1,8 +1,18 @@
 <template>
   <div class="search mobile-hid">
-    <input :value="value" type="text" @input="changeText" @keyup.enter="$emit('search')" />
-    <i style="font-size:20px" class="icon iconfont">&#xe619;</i>
-    <div class="search-btn" @click="$emit('search')">搜索</div>
+    <div class="search-container">
+      <i class="icon iconfont">&#xe619;</i>
+      <input 
+        :value="value" 
+        type="text" 
+        placeholder="搜索文章..."
+        @input="changeText" 
+        @keyup.enter="$emit('search')" 
+      />
+      <button class="search-btn" @click="$emit('search')">
+        <span>搜索</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -31,51 +41,91 @@ export default defineComponent({
 <style lang="less" scoped>
 @media (max-width: 768px) {
   .search {
-    direction: none;
+    display: none;
   }
 }
+
 .search {
   position: relative;
   margin-left: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  input {
-    height: 30px;
-    width: 200px;
-    border-radius: 12px;
-    border: 1px solid #aaa;
-    padding-left: 40px;
-    box-sizing: border-box;
-    color: var(--color);
-    &:focus {
-      transition: all 0.2s;
-      border: 1px solid #333;
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 220px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    &:focus-within {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      border-color: var(--color-primary);
+      transform: translateY(-1px);
     }
   }
+  
+  input {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0 10px 0 35px;
+    font-size: 14px;
+    color: var(--color);
+    
+    &::placeholder {
+      color: var(--color);
+      opacity: 0.5;
+    }
+    
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+  
   .icon {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
     left: 10px;
-    width: 20px;
-    height: 20px;
+    font-size: 16px;
+    color: var(--color);
+    opacity: 0.7;
+    z-index: 1;
   }
+  
   .search-btn {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
-    right: 0;
-    width: 50px;
     height: 100%;
-    text-align: center;
-    line-height: 30px;
-    // border-left: 1px solid #ccc;
+    padding: 0 12px;
+    background: var(--color-primary);
+    border: none;
+    color: white;
     font-size: 14px;
-    border-radius: 12px;
+    font-weight: 500;
     cursor: pointer;
-    user-select: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background: darken(#3e88ea, 5%);
+    }
+    
+    span {
+      display: inline-block;
+      transform: translateY(0);
+      transition: transform 0.2s ease;
+    }
+    
+    &:hover span {
+      transform: translateY(-1px);
+    }
   }
 }
 </style>

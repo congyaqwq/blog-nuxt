@@ -1,5 +1,5 @@
 <template>
-  <header ref="head" class="head middle-flex between-flex" :class="isFixd ? 'fixed' : ''">
+  <header ref="head" class="head middle-flex between-flex" :class="fixed">
     <div class="left middle-flex">
       <div class="avatar">
         <my-image title="avatar 头像" :src="require('@/static/youdoa.png')"></my-image>
@@ -14,8 +14,12 @@
       <span class="mobile-hid">主题：</span>
       <my-radio></my-radio>
     </div>
-    <div class="mobile mobile-show" @click="showMenu">
-      <i style="font-size:40px" class="iconfont">&#xe6d8;</i>
+    <div class="mobile mobile-show" @click="visible ? hideMenu() : showMenu()">
+      <div class="hamburger-menu" :class="{ 'active': visible }">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
     <div class="right mobile-hid">
       <nav class="nav-bar middle-flex">
@@ -29,7 +33,8 @@
         >
       </nav>
     </div>
-    <div v-if="visible" class="mobile-menu">
+    <transition name="fade-slide">
+      <div v-if="visible" class="mobile-menu">
       <div class="bg" @click="hideMenu"></div>
       <nav class="menu" @click="hideMenu('link')">
         <router-link
@@ -43,6 +48,7 @@
         <search-filter v-if="$route.name == 'index'" @change="hideMenu"></search-filter>
       </nav>
     </div>
+    </transition>
   </header>
 </template>
 
@@ -64,9 +70,8 @@ export default defineComponent({
     MySearch,
     MyRadio,
   },
-  props: ['isFixd'],
   emits: ['fixed', 'cancel'],
-  setup(_, { emit }) {
+  setup(_) {
     const route = useRoute()
     const keyword = ref('')
     // 移动端显示背景以及左侧导航
@@ -75,12 +80,10 @@ export default defineComponent({
 
     const showMenu = () => {
       visible.value = true
-      emit('fixed')
     }
 
     const hideMenu = (type) => {
       visible.value = false
-      emit('cancel', type)
     }
 
     const search = () => {
@@ -118,7 +121,7 @@ export default defineComponent({
   color: var(--color);
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
-  z-index: 2;
+  z-index: 1000; /* Increased z-index to ensure header stays above all content */
   &.fixed {
     animation: fadeInDown 0.3s linear;
     position: fixed;
@@ -159,11 +162,46 @@ export default defineComponent({
 @media (max-width: 768px) {
   .head {
     padding: 0 5%;
-    position: fixed;
-    &.fixed {
-      animation: none;
-    }
+    position: sticky;
+    top: 0;
     .mobile {
+      cursor: pointer;
+      
+      .hamburger-menu {
+        width: 30px;
+        height: 24px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+        
+        span {
+          display: block;
+          height: 3px;
+          width: 100%;
+          border-radius: 3px;
+          background-color: var(--color);
+          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+          transform-origin: left center;
+        }
+        
+        &.active {
+          span:nth-child(1) {
+            transform: rotate(45deg);
+          }
+          
+          span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(10px);
+          }
+          
+          span:nth-child(3) {
+            transform: rotate(-45deg);
+          }
+        }
+      }
+      
       img {
         width: 30px;
         height: 30px;
@@ -182,7 +220,8 @@ export default defineComponent({
         height: 100%;
         background-color: #000;
         opacity: 0.49;
-        transition: opacity 0.5s;
+        transition: opacity 0.3s ease-in-out;
+        animation: fadeIn 0.3s ease-in-out;
       }
       .menu {
         position: relative;
@@ -190,12 +229,17 @@ export default defineComponent({
         width: 60%;
         height: 100%;
         background-color: var(--bg);
-        animation: leftToRight 0.3s linear;
+        animation: slideInMenu 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         .item {
           padding: 20px;
-          border-bottom: 2px solid #eee;
+          border-bottom: 1px solid var(--border-color);
+          transition: background-color 0.2s ease;
           &.active {
             font-weight: bold;
+          }
+          &:hover {
+            background-color: var(--bg-secondary);
           }
         }
       }
@@ -203,14 +247,36 @@ export default defineComponent({
   }
 }
 
-@keyframes leftToRight {
+@keyframes slideInMenu {
   0% {
-    width: 40%;
-    opacity: 0.5;
+    transform: translateX(-100%);
+    opacity: 0;
   }
   100% {
-    width: 60%;
+    transform: translateX(0);
     opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.49;
+  }
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  .menu {
+    transform: translateX(-100%);
   }
 }
 </style>

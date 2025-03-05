@@ -14,9 +14,11 @@ export default defineComponent({});
 
 <style lang="less" scoped>
 .footer {
+  position: relative;
   bottom: 0;
   height: 60px;
   width: 100%;
   background-color: var(--bg);
+  margin-top: auto;
 }
 </style>
