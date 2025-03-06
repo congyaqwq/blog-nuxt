@@ -1,37 +1,27 @@
 <template>
   <div class="relationship-page">
-    <h1 class="page-title">友情链接</h1>
-    
     <div class="links-container">
-      <div class="link-card">
+      <div 
+        v-for="(link, index) in links" 
+        :key="index" 
+        class="link-card"
+      >
         <div class="link-header">
-          <h2 class="link-title">多人账单</h2>
+          <h2 class="link-title">{{ link.title }}</h2>
           <div class="link-tags">
-            <span class="tag">工具</span>
-            <span class="tag">账单管理</span>
+            <span 
+              v-for="(tag, tagIndex) in link.tags" 
+              :key="tagIndex" 
+              class="tag"
+            >
+              {{ tag }}
+            </span>
           </div>
         </div>
         <p class="link-description">
-          多人账单管理工具，帮助您轻松管理和分摊团队、朋友或家庭的共享费用。简单易用的界面让记账和分摊变得轻松愉快。
+          {{ link.description }}
         </p>
-        <a href="https://www.congyaqwq.top/static/account/" target="_blank" class="link-button">
-          访问网站
-          <span class="arrow">→</span>
-        </a>
-      </div>
-      
-      <div class="link-card">
-        <div class="link-header">
-          <h2 class="link-title">贪吃蛇</h2>
-          <div class="link-tags">
-            <span class="tag">游戏</span>
-            <span class="tag">休闲</span>
-          </div>
-        </div>
-        <p class="link-description">
-          经典贪吃蛇游戏，简单而有趣。控制蛇移动方向，吃掉食物让它变长，同时避免撞到墙壁或自己的身体。挑战高分，享受休闲时光。
-        </p>
-        <a href="https://www.congyaqwq.top/static/snake-game/" target="_blank" class="link-button">
+        <a :href="link.url" target="_blank" class="link-button">
           访问网站
           <span class="arrow">→</span>
         </a>
@@ -44,6 +34,24 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
+  data() {
+    return {
+      links: [
+        {
+          title: '多人账单',
+          tags: ['工具', '账单管理'],
+          description: '多人账单管理工具，帮助您轻松管理和分摊团队、朋友或家庭的共享费用。简单易用的界面让记账和分摊变得轻松愉快。',
+          url: 'https://www.congyaqwq.top/static/account/'
+        },
+        {
+          title: '贪吃蛇',
+          tags: ['游戏', '休闲'],
+          description: 'AI 编写的贪吃蛇游戏，支持双人对战，玩家通过箭头和 WASD 控制移动',
+          url: 'https://www.congyaqwq.top/static/snake-game/'
+        }
+      ]
+    }
+  },
   head() {
     return {
       title: '友情链接',
@@ -62,25 +70,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .relationship-page {
   max-width: 800px;
-  margin: 0 auto;
-  
-  .page-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--color-primary);
-    position: relative;
-    display: inline-block;
-    
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 40%;
-      height: 3px;
-      background-color: var(--color-primary);
-    }
-  }
+  margin: 20px auto;
   
   .links-container {
     display: grid;

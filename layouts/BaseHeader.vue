@@ -1,5 +1,5 @@
 <template>
-  <header ref="head" class="head middle-flex between-flex" :class="fixed">
+  <header ref="head" class="head middle-flex between-flex">
     <div class="left middle-flex">
       <div class="avatar">
         <my-image title="avatar 头像" :src="require('@/static/youdoa.png')"></my-image>
@@ -70,7 +70,6 @@ export default defineComponent({
     MySearch,
     MyRadio,
   },
-  emits: ['fixed', 'cancel'],
   setup(_) {
     const route = useRoute()
     const keyword = ref('')
@@ -112,7 +111,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .head {
-  position: relative;
+  position: sticky;
   top: 0;
   padding: 0 10%;
   width: 100%;
@@ -122,12 +121,6 @@ export default defineComponent({
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000; /* Increased z-index to ensure header stays above all content */
-  &.fixed {
-    animation: fadeInDown 0.3s linear;
-    position: fixed;
-    top: 0;
-    z-index: 10;
-  }
   .left {
     .avatar {
       margin-right: 10px;

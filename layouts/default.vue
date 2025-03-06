@@ -107,9 +107,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    padding-top: 130px;
-  }
 }
 
 .main > .main-content:nth-child(2) {

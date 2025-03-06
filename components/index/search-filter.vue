@@ -1,7 +1,7 @@
 <template>
   <aside ref="tagDom" class="tag-list">
-    <ul class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
-      <li
+    <div class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
+      <div 
         v-for="it in list"
         :key="it.id"
         class="tag-item"
@@ -9,8 +9,8 @@
         @click="findByTag(it)"
       >
         {{ it.name }}
-      </li>
-    </ul>
+      </div>
+    </div>
   </aside>
 </template>
 
@@ -107,46 +107,72 @@ export default defineComponent({
   margin-left: 20px;
   min-height: 40px;
   .tag-wrap {
+    display: flex;
     flex-wrap: wrap;
     width: 300px;
     height: fit-content;
-    padding: 10px;
+    padding: 15px;
     background-color: var(--bg-filter);
     border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    gap: 10px;
+    
     &.fixed {
       position: fixed;
       top: 130px;
       right: calc(10% - 20px);
       animation: fade 0.8s;
+      z-index: 10;
     }
   }
   .tag-item {
     text-align: center;
-    padding: 5px 10px;
+    padding: 6px 14px;
     min-width: 50px;
-    height: 40px;
-    line-height: 40px;
+    height: auto;
+    line-height: 1.5;
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
+    background-color: var(--bg-secondary);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    
     &:hover {
-      font-weight: bold;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+    
     &.active {
-      font-weight: bold;
+      background-color: var(--color-primary);
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
   }
 }
 @media (max-width: 768px) {
   .tag-list {
     margin-top: 30px;
-    width: 60%;
+    width: 100%;
+    margin-left: 20px;
+    
     .tag-wrap {
-      width: 100%;
+      width: 150px;
+      padding: 12px;
+      justify-content: center;
+      
       .tag-item {
-        width: 100%;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
       }
     }
   }
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
