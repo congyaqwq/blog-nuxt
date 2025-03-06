@@ -8,13 +8,6 @@
         </div>
         <div class="view">{{ data.views }}</div>
       </div>
-      <!-- <div class="thumbs-wrap middle-flex" @click="thumb">
-        <div class="icon">
-          <i v-if="data.is_thumb" class="iconfont">&#xe6e4;</i>
-          <i v-else class="iconfont">&#xe708;</i>
-        </div>
-        <div class="thumbs">{{ data.thumbs }}</div>
-      </div> -->
     </div>
     <section class="content" v-html="data.content"></section>
   </div>
@@ -30,7 +23,7 @@ import {
   useMeta,
   computed,
 } from "@nuxtjs/composition-api";
-import marked from "marked";
+import { marked } from "marked";
 
 export default defineComponent({
   head: {},
@@ -46,7 +39,15 @@ export default defineComponent({
     }));
     const { fetch } = useFetch(async () => {
       let detail = await Api.detail(id);
-      detail.content = marked(detail.content);
+      if (detail && detail.content) {
+        try {
+          detail.content = marked.parse(detail.content);
+        } catch (e) {
+          console.error('Error parsing markdown:', e);
+          // Fallback to raw content if parsing fails
+          detail.content = detail.content || '';
+        }
+      }
       data.value = detail;
     });
     const thumb = async () => {

@@ -21,11 +21,11 @@ export default defineComponent({
     },
     width: {
       type: Number,
-      default: 80,
+      default: 60,
     },
     height: {
       type: Number,
-      default: 80,
+      default: 60,
     },
   },
 });
