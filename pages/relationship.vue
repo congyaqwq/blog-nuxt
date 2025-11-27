@@ -73,12 +73,13 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .relationship-page {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 20px auto;
+  padding: 0 20px;
   
   .links-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     
     .link-card {
