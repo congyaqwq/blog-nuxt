@@ -32,24 +32,28 @@
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
+import { list } from '@/api/applications'
 
 export default defineComponent({
+  async asyncData() {
+    try {
+      const res = await list({ page: 1, per_page: 50 })
+      return {
+        links: (res.list || []).map(item => ({
+          title: item.name,
+          description: item.description,
+          tags: item.tag ? item.tag.split(',') : [],
+          url: item.link
+        }))
+      }
+    } catch (error) {
+      console.error('Failed to fetch applications:', error)
+      return { links: [] }
+    }
+  },
   data() {
     return {
-      links: [
-        {
-          title: '多人账单',
-          tags: ['工具', '账单管理'],
-          description: '多人账单管理工具，帮助您轻松管理和分摊团队、朋友或家庭的共享费用。简单易用的界面让记账和分摊变得轻松愉快。',
-          url: 'https://www.congyaqwq.top/static/account/'
-        },
-        {
-          title: '贪吃蛇',
-          tags: ['游戏', '休闲'],
-          description: 'AI 编写的贪吃蛇游戏，支持双人对战，玩家通过箭头和 WASD 控制移动',
-          url: 'https://www.congyaqwq.top/static/snake-game/'
-        }
-      ]
+      links: []
     }
   },
   head() {
